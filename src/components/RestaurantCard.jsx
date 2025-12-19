@@ -9,7 +9,7 @@ export default function RestaurantCard({ restaurant, distance }) {
     };
 
     return (
-        <div className="card restaurant-card">
+        <div id={`restaurant-${restaurant.id}`} className="card restaurant-card">
             <div style={{ height: '240px', overflow: 'hidden', position: 'relative' }}>
                 <img
                     src={image}

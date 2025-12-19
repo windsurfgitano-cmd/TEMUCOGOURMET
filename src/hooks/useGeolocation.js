@@ -24,6 +24,8 @@ export function useGeolocation(points) {
     };
 
     useEffect(() => {
+        let watchId;
+
         if (!navigator.geolocation) {
             setError("Geolocation is not supported by your browser");
             return;
@@ -32,6 +34,7 @@ export function useGeolocation(points) {
         const handleSuccess = (position) => {
             const { latitude, longitude } = position.coords;
             setLocation({ lat: latitude, lng: longitude });
+            setError(null); // Clear previous errors
 
             if (points) {
                 let minDistance = Infinity;
@@ -39,7 +42,6 @@ export function useGeolocation(points) {
 
                 points.forEach(point => {
                     const dist = getDistance(latitude, longitude, point.lat, point.lng);
-                    // Attach distance to point
                     point.distanceKm = dist.toFixed(2);
 
                     if (dist < minDistance) {
@@ -48,28 +50,39 @@ export function useGeolocation(points) {
                     }
                 });
 
-                // Trigger if less than 1km (for demo/MVP purposes)
-                // In real life maybe 100m. But for testing 10km might be better if user is far.
-                // Let's set a threshold of 0.5km for the "Popup"
                 if (closest && minDistance < 0.5) {
                     setNearest(closest);
                 } else {
-                    setNearest(null); // Or keep closest but track it's far
+                    setNearest(null);
                 }
             }
         };
 
-        const handleError = () => {
-            setError("Unable to retrieve your location");
+        const handleError = (err) => {
+            console.warn("Geo error:", err);
+            if (err.code === 1) {
+                setError("Permiso denegado. Por favor, actívalo arriba.");
+            } else if (err.code === 2) {
+                setError("Ubicación no disponible.");
+            } else if (err.code === 3) {
+                // Timeout
+                console.log("Timeout, retrying...");
+                // Optionally trigger a manual reload or just keep waiting if watchPosition retries internaly (it usually doesn't for timeout)
+                setError("Tardando mucho... asegúrate de tener GPS activo.");
+            } else {
+                setError("Error de ubicación desconocido.");
+            }
         };
 
-        const id = navigator.geolocation.watchPosition(handleSuccess, handleError, {
+        const options = {
             enableHighAccuracy: true,
             maximumAge: 10000,
-            timeout: 5000
-        });
+            timeout: 20000 // Increased timeout for desktop/slow fix
+        };
 
-        return () => navigator.geolocation.clearWatch(id);
+        watchId = navigator.geolocation.watchPosition(handleSuccess, handleError, options);
+
+        return () => navigator.geolocation.clearWatch(watchId);
     }, [points]);
 
     return { location, nearest, error, getDistance };
