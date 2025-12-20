@@ -6,7 +6,7 @@ export const restaurants = [
         lat: -38.7415,
         lng: -72.6176,
         discount: "20% en Cortes Premium",
-        image: "https://images.unsplash.com/photo-1544025162-d7669d68187c?q=80&w=800&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?q=80&w=800&auto=format&fit=crop",
         description: "La mejor carne a las brasas de Temuco. Experiencia única en cortes seleccionados."
     },
     {

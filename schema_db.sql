@@ -22,7 +22,7 @@ create policy "Public restaurants are viewable by everyone."
 -- Insert default data (matching our mock)
 insert into restaurants (name, category, lat, lng, discount, image, description)
 values
-  ('La Pampa', 'Parrillada Premium', -38.7415, -72.6176, '20% en Cortes Premium', 'https://images.unsplash.com/photo-1544025162-d7669d68187c?q=80&w=800&auto=format&fit=crop', 'La mejor carne a las brasas de Temuco. Experiencia única en cortes seleccionados.'),
+  ('La Pampa', 'Parrillada Premium', -38.7415, -72.6176, '20% en Cortes Premium', 'https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?q=80&w=800&auto=format&fit=crop', 'La mejor carne a las brasas de Temuco. Experiencia única en cortes seleccionados.'),
   ('Marriet', 'Cocina de Autor', -38.7390, -72.6000, 'Postre Gratis', 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop', 'Cocina sofisticada, ambiente exclusivo y una carta de vinos insuperable.'),
   ('Confitería Central', 'Café & Pastelería', -38.7350, -72.5900, '2x1 en Café de Grano', 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop', 'Tradición alemana en el corazón de la ciudad. Pastelería fresca cada día.'),
   ('Beers N Burgers', 'Hamburguesas', -38.7320, -72.6200, '15% Off Total Cuenta', 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop', 'Hamburguesas artesanales gigantes y la mejor selección de cervezas locales.'),
